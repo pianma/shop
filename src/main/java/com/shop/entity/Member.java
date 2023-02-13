@@ -11,13 +11,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="member")
-@Getter
-@Setter
+@Getter @Setter
 @ToString
-public class Member {
+public class Member{
 
     @Id
-    @Column(name="member")
+    @Column(name="member_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -34,7 +33,6 @@ public class Member {
     private Role role;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
-
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
