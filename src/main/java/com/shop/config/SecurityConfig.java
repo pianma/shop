@@ -34,13 +34,12 @@ public class SecurityConfig {
 
         ;
 
-        http.authorizeHttpRequests((requests) ->requests
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/fragments/**", "/layouts/**", "/favicon.ico", "/resources/**", "/error").permitAll()
-                .requestMatchers("/", "/members/**", "/item/**", "/images/**", "/board/**", "/category/**").permitAll()
-                .requestMatchers("/order/**").hasRole("USER")
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated())
-        ;
+        http.authorizeRequests()
+                .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .mvcMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                ;
 
 //        http.exceptionHandling()
 //                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
