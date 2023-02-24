@@ -22,7 +22,7 @@ public class MemberController {
     @GetMapping(value = "/new")
     public String memberForm(Model model){
         model.addAttribute("memberFormDto", new MemberFormDto());
-        return "member/memberForm";
+        return "/member/memberForm";
     }
 
     @PostMapping(value = "/new")
@@ -33,5 +33,11 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    @GetMapping(value = "/login")
+    public String loginMember(){
+        return "member/memberLoginForm";
+    }
+
 
 }
