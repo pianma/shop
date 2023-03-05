@@ -2,7 +2,7 @@ package com.shop.service;
 
 import com.shop.dto.MemberFormDto;
 import com.shop.entity.Member;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
