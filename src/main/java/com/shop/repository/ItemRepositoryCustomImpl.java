@@ -6,7 +6,6 @@ import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shop.constant.ItemSellStatus;
 import com.shop.dto.ItemSearchDto;
-import com.shop.dto.MainItemDto;
 import com.shop.dto.QMainItemDto;
 import com.shop.entity.Item;
 import com.shop.entity.QItem;
@@ -54,9 +53,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
     private BooleanExpression searchByLike(String searchBy, String searchQuery){
 
         if(StringUtils.equals("itemNm", searchBy)){
-            return QItem.item.itemNm.like("%" + searchQuery + "%");
-        } else if(StringUtils.equals("createdBy", searchBy)){
-            return QItem.item.createdBy.like("%" + searchQuery + "%");
+            return QItem.item.itemName.like("%" + searchQuery + "%");
         }
 
         return null;
@@ -87,7 +84,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
     }
 
     private BooleanExpression itemNmLike(String searchQuery){
-        return StringUtils.isEmpty(searchQuery) ? null : QItem.item.itemNm.like("%" + searchQuery + "%");
+        return StringUtils.isEmpty(searchQuery) ? null : QItem.item.itemName.like("%" + searchQuery + "%");
     }
 
     @Override
@@ -99,14 +96,13 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 .select(
                         new QMainItemDto(
                                 item.id,
-                                item.itemNm,
+                                item.itemName,
                                 item.itemDetail,
                                 itemImg.imgUrl,
                                 item.price)
                 )
                 .from(itemImg)
                 .join(itemImg.item, item)
-                .where(itemImg.repimgYn.eq("Y"))
                 .where(itemNmLike(itemSearchDto.getSearchQuery()))
                 .orderBy(item.id.desc())
                 .offset(pageable.getOffset())
@@ -117,7 +113,6 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 .select(Wildcard.count)
                 .from(itemImg)
                 .join(itemImg.item, item)
-                .where(itemImg.repimgYn.eq("Y"))
                 .where(itemNmLike(itemSearchDto.getSearchQuery()))
                 .fetchOne()
                 ;
