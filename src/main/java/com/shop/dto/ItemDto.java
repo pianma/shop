@@ -11,7 +11,7 @@ public class ItemDto {
 
     private Long id;
 
-    private String itemName;
+    private String itemNm;
 
     private Integer price;
 
